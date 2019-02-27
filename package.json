@@ -1,0 +1,28 @@
+{
+    "name": "cc.fovea.purchase.demo",
+    "displayName": "PurchaseNC",
+    "version": "1.0.0",
+    "description": "A sample Apache Cordova application that responds to the deviceready event.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Apache Cordova Team",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "cc.fovea.cordova.purchase": "^7.3.0-beta.0",
+        "cordova-android": "^7.1.4",
+        "cordova-plugin-whitelist": "^1.3.3"
+    },
+    "cordova": {
+        "plugins": {
+            "cordova-plugin-whitelist": {},
+            "cc.fovea.cordova.purchase": {
+                "BILLING_KEY": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuJQh6jlNr6SlF3p+I2zGBZdDbCGCTUj8ubZLSks9zYp3BI3lnvj6/MRBAUZQFmLCmrw6dQl/qh8IX3k4mtVPtXZUSx9DTLge0hdBWkcOCuYGcWdvM6PKNigdT1BC3SFjeVgWFZMSpOfmaoZ1a9eA2bONeqDKeCbhLnmgyOUlRSolfw/Tgk+SFpSv26hR3EbHSC4W7Q5NtK5fq/7/MLoYpXiKrz9X4ZOa654aoZ3JSmy8XFKj9nYZKElM6tsHkXV9lecUe7yY+ieEdaliZryh50ZTUdT9GY0lDlYn89rbmC5dWJaORzQ97pu8huFQu6xyp/+LEYvieXkCSiFIYF4uIwIDAQAB"
+            }
+        },
+        "platforms": [
+            "android"
+        ]
+    }
+}
