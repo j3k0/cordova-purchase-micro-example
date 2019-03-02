@@ -1,6 +1,6 @@
-# Cordova Purchase Micro Example
+# Cordova Purchase Micro Example - Subscriptions
 
-This is a minimal example of an app using the [cordova purchase plugin](https://github.com/j3k0/cordova-plugin-purchase).
+This is a minimal example of an app using the [cordova purchase plugin](https://github.com/j3k0/cordova-plugin-purchase) for subscriptions.
 
 This example is part of the [official documentation](https://purchase.cordova.fovea.cc).
 
@@ -14,7 +14,7 @@ Add the platform of your choice, for example android:
 
     cordova platform add android
 
-For android, build a release AKP:
+For android, build a release APK:
 
     ./android-release.sh
 
