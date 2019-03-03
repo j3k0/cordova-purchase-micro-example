@@ -72,11 +72,11 @@ function renderUI() {
 
         // Create and update the HTML content
         const info = product.loaded
-            ? `title:      ${ product.title       || '' }<br/>` +
-              `desc:       ${ product.description || '' }<br/>` +
-              `price:      ${ product.price       || '' }<br/>` +
-              `state:      ${ product.state       || '' }<br/>` +
-              `expiry:     ${ product.expiryDate  || '' }<br/>`
+            ? `title:  ${ product.title       || '' }<br/>` +
+              `desc:   ${ product.description || '' }<br/>` +
+              `price:  ${ product.price       || '' }<br/>` +
+              `state:  ${ product.state       || '' }<br/>` +
+              `expiry: ${ product.expiryDate  || '' }<br/>`
             : `...`;
         const button = product.canPurchase
             ? `<button style="margin:20px 0" onclick="store.order('${product.id}')">Buy Now!</button>`
