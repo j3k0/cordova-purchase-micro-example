@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://devbox-reeceipt-validator.fovea.cc 'unsafe-eval' 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; media-src *">
 </head>
-<body style="margin-top: 50px">
+<body style="margin-top: 50px; background-color: white">
   <div class="app">
 
     <!-- We'll show errors here -->
@@ -12,13 +12,18 @@
     <!-- Status of the subscription -->
     <p id="status">Loading...</p>
 
-    <!-- Details about the "s1" and "s2" products -->
-    <div id="s1-purchase" style="margin-top: 30px">...</div>
-    <div id="s2-purchase" style="margin-top: 30px">...</div>
+    <!-- Details about the "subscription1" and "subscription2" products -->
+    <div id="subscription1-purchase" style="margin-top: 30px">...</div>
+    <div id="subscription2-purchase" style="margin-top: 30px">...</div>
 
     <!-- Open the platforms' subscription management screen -->
     <button onclick="store.manageSubscriptions()" style="margin-top: 30px">
       Manage Subscriptions
+    </button>
+
+    <!-- Open the platforms' subscription management screen -->
+    <button onclick="store.refresh()" style="margin-top: 30px">
+      Restore Purchases 
     </button>
   </div>
   <script type="text/javascript" src="cordova.js"></script>
