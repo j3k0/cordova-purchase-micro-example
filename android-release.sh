@@ -34,10 +34,14 @@ if test -z "$KEYSTORE_PASSWORD"; then
 fi
 cordova build android --release -- --keystore="$KEYSTORE" --alias="$KEYSTORE_ALIAS" --storePassword="$KEYSTORE_PASSWORD" --password="$KEYSTORE_PASSWORD"
 
+                   
 APK_PATH="$ROOT_DIR/platforms/android/app/build/outputs/apk/release/app-release.apk"
 if test ! -e "$APK_PATH"; then
   APK_PATH="$ROOT_DIR/platforms/android/build/outputs/apk/app-release.apk"
-fi
+fi                   
+if test ! -e "$APK_PATH"; then
+  APK_PATH="$ROOT_DIR/platforms/android/build/outputs/apk/release/android-release.apk"
+fi                   
 
 rm -f "$FINAL_APK"
 mv "$APK_PATH" "$FINAL_APK"

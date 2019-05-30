@@ -14,6 +14,7 @@ function onDeviceReady() {
 
     // Show errors on the dedicated Div.
     store.error(function(error) {
+      console.error(error);
       document.getElementById('error').textContent = `ERROR ${error.code}: ${error.message}`;
       setTimeout(() => {
         document.getElementById('error').innerHTML = '<br/>';
@@ -66,11 +67,13 @@ function renderUI() {
             ? `title:  ${ product.title       || '' }<br/>` +
               `desc:   ${ product.description || '' }<br/>` +
               `price:  ${ product.price       || '' }<br/>` +
-              `state:  ${ product.state       || '' }<br/>` +
+              `state:  ${ product.state       || '' }<br/>`
             : `...`;
         const button = product.canPurchase
             ? `<button style="margin:20px 0" onclick="store.order('${product.id}')">Buy Now!</button>`
             : '';
+        console.log('renderProductUI()');
+        console.log(info);
         document.getElementById(`${productId}-purchase`).innerHTML = info + button;
     }
 }
