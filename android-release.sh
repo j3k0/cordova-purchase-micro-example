@@ -52,5 +52,5 @@ echo
 if [ "_$1" = _run ]; then
     adb install -r "$FINAL_APK"
     adb logcat -c
-    adb logcat | grep chromium
+    adb logcat '*:S chromium:D CordovaPurchase:D PluginManager:D SystemWebChromeClient:D'
 fi
