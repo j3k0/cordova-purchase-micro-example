@@ -7,6 +7,15 @@ function onDeviceReady() {
         id:    'subscription1',
         type:   store.PAID_SUBSCRIPTION,
     }, {
+        id:    'nonconsumable1',
+        type:   store.NON_CONSUMABLE,
+    }, {
+        id:    'consumable1',
+        type:   store.CONSUMABLE,
+    }, {
+        id:    'consumable2',
+        type:   store.CONSUMABLE,
+    }, {
         id:    'subscription2',
         type:   store.PAID_SUBSCRIPTION,
     }]);
@@ -24,7 +33,7 @@ function onDeviceReady() {
     });
 
     // Define events handler for our subscription products
-    store.when('subscription')
+    store.when()
          .updated(renderUI)          // render the interface on updates
          .approved(p => p.verify())   // verify approved transactions
          .verified(p => p.finish());  // finish verified transactions
@@ -49,9 +58,12 @@ function renderUI() {
     else
         document.getElementById('status').textContent = 'Not Subscribed';
 
-    // Render the products' DOM elements "subscription1-purchase" and "subscription2-purchase"
+    // Render the products' DOM elements
     renderProductUI('subscription1');
     renderProductUI('subscription2');
+    renderProductUI('consumable1');
+    renderProductUI('consumable2');
+    // renderProductUI('nonconsumable1');
 
     // Does any our product has the given state?
     function haveState(value) {
@@ -74,13 +86,22 @@ function renderUI() {
             ? `title:  ${ product.title       || '' }<br/>` +
               `desc:   ${ product.description || '' }<br/>` +
               `price:  ${ product.price       || '' }<br/>` +
-              `state:  ${ product.state       || '' }<br/>` +
-              `expiry: ${ product.expiryDate && product.expiryDate.toString() || '' }<br/>`
-            : `...`;
-        const button = product.canPurchase
-            ? `<button style="margin:20px 0" onclick="store.order('${product.id}')">Buy Now!</button>`
+              `state:  ${ product.state       || '' }<br/>`
             : '';
-        document.getElementById(`${productId}-purchase`).innerHTML = info + button;
+        const introPrice = product.loaded  && product.type === store.PAID_SUBSCRIPTION && !product.ineligibleForIntroPrice
+            ? `intro:  ${ product.introPrice    || '' } for ${ product.introPriceNumberOfPeriods || '' } ${ product.introPriceSubscriptionPeriod || '' } (${ product.introPricePaymentMode || '' })<br/>`
+            : '';
+        const subInfo = product.loaded && product.type === store.PAID_SUBSCRIPTION
+            ? `per:    ${ product.billingPeriod || '' } ${ product.billingPeriodUnit || '' }<br/>` +
+              `expiry: ${ product.expiryDate && product.expiryDate.toString() || '' }<br/>` +
+              `intent: ${ product.renewalIntent || '' }<br/>`
+            : '';
+        const button = product.canPurchase
+            ? `<button style="margin:20px 0" onclick="store.order('${product.id}', {applicationUsername: 'hellokitty'})">Buy Now!</button>`
+            : '';
+        const el = document.getElementById(`${productId}-purchase`);
+        if (el)
+          el.innerHTML = info + introPrice + subInfo + button;
     }
 }
 
