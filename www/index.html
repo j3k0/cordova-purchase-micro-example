@@ -16,11 +16,7 @@
     <p id="status">Loading...</p>
 
     <!-- Details about the "subscription1" and "subscription2" products -->
-    <div id="subscription1-purchase" style="margin-top: 30px">...</div>
-    <div id="subscription2-purchase" style="margin-top: 30px">...</div>
-    <div id="consumable1-purchase" style="margin-top: 30px">...</div>
-    <div id="consumable2-purchase" style="margin-top: 30px">...</div>
-    <!-- div id="nonconsumable1-purchase" style="margin-top: 30px">...</div -->
+    <div id="products">...</div>
 
     <!-- Open the platforms' subscription management screen -->
     <button onclick="store.manageSubscriptions()" style="margin-top: 30px">
@@ -29,7 +25,12 @@
 
     <!-- Restore purchases made from another device -->
     <button onclick="store.refresh()" style="margin-top: 30px">
-      Restore Purchases 
+      Refresh Store
+    </button>
+
+    <!-- Run app receipt validation -->
+    <button onclick="store.validate()" style="margin-top: 30px">
+      Validate Receipt
     </button>
   </div>
   <script type="text/javascript" src="cordova.js"></script>
