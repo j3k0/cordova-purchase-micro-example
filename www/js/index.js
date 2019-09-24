@@ -101,15 +101,20 @@ function renderUI() {
         // Create and update the HTML content
         const info = product.loaded
             ? `title:  ${ product.title       || '' }<br/>` +
-              `desc:   ${ product.description || '' }<br/>` +
-              `price:  ${ product.price       || '' }<br/>` +
-              `state:  ${ product.state       || '' }<br/>`
+              (product.description ? `desc:   ${ product.description || '' }<br/>` : '') +
+              (product.price ? `price:  ${ product.price       || '' }`
+                + (
+                  product.loaded && product.type === store.PAID_SUBSCRIPTION
+                  ? ` for ${ product.billingPeriod || '' } ${ product.billingPeriodUnit || '' }`
+                  : ''
+                ) + `<br/>` : '') +
+                `state:  ${ product.state       || '' }<br/>`
             : '';
         const introPrice = product.loaded && product.type === store.PAID_SUBSCRIPTION && product.introPrice
             ? `intro:  ${ strikeIf(product.ineligibleForIntroPrice) }${ product.introPrice || '' } for ${ product.introPricePeriod || '' } ${ product.introPricePeriodUnit || '' } (${ product.introPricePaymentMode || '' })${ strikeEnd(product.ineligibleForIntroPrice) }<br/>`
             : '';
         function discountButton(discount) {
-          return discount.eligible
+          return discount.eligible && (product.state === store.OWNED || product.state === store.VALID)
             ? `<button onclick="orderDiscount('${ product.id }', '${ discount.id }')">Redeem</button>`
             : '';
         }
@@ -132,7 +137,7 @@ function renderUI() {
 function orderDiscount(productId, discountId) {
   const product = store.get(productId);
   if (!store.get(store.APPLICATION)) {
-    alert('Please run store.validate() before ordering a discount.');
+    alert('Please use "verify purchases" before ordering a discount.');
     return;
   }
   if (!store.getApplicationUsername(product)) {
@@ -140,6 +145,7 @@ function orderDiscount(productId, discountId) {
     return;
   }
   console.log('orderDiscount("' + productId + '", "' + discountId + '")');
+  console.log(' - applicationUsername=' + store.getApplicationUsername());
   const request = {
     appBundleID: store.get(store.APPLICATION).id,
     productID: productId,
@@ -155,14 +161,14 @@ function orderDiscount(productId, discountId) {
         errorHandler(data);
         return;
       }
-      // example data: {
+      // example response data: {
       //     "keyID": "D76V8WWKQ2",
       //     "nonce": "ab7a27a7-50b6-4b81-b008-a3b1b922287c",
       //     "timestamp": 1568976952688,
       //     "signature": "NEYCIQC1FLmYb0PkzmpEowdcIZsVTcj09kAa1iZ8fbnJZT6hqQIhANIMLry52eDe5kMkz+n+rgnXw6D13YCLALWBw9pMDpt+"
       // }         
       const orderData = {
-        applicationUsername: request.applicationUsername,
+        applicationUsername: store.getApplicationUsername(),
         discount: {
           id: discountId,
           key: data.keyID,
