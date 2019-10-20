@@ -22,6 +22,12 @@ Note, this is setup to use an App ID that belongs to Fovea, you can change this 
 
 For Android, you also need your own keystore and to update the `BILLING_KEY` to your own.
 
+## Discount Offers Server
+
+For signature generation, the demo application uses this demo server:
+
+https://github.com/j3k0/nodejs-suboffer-signature-server
+
 ## License
 
 MIT
