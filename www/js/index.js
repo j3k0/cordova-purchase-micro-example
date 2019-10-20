@@ -10,28 +10,19 @@ function onDeviceReady() {
         id:    'cc.fovea.purchase.subscription2sx',
         alias: 'sub2',
         type:  store.PAID_SUBSCRIPTION,
-    }/*, {
-        id:    'nonconsumable1',
-        type:   store.NON_CONSUMABLE,
     }, {
-        id:    'consumable1',
+        id:    '1_token',
+        alias: 'token',
         type:   store.CONSUMABLE,
-    }, {
-        id:    'consumable2',
-        type:   store.CONSUMABLE,
-    }, {
-        id:    'subscription2',
-        type:   store.PAID_SUBSCRIPTION,
-    }*/];
+    }];
 
     // We should first register all our products or we cannot use them in the app.
     store.register(products);
     store.verbosity = store.DEBUG;
-    store.applicationUsername = "hellokitty"; // plugin will hash this with md5 when needed
+    store.applicationUsername = "my_username"; // the plugin will hash this with md5 where needed
 
     // For subscriptions and secured transactions, we setup a receipt validator.
-    store.validator = "https://devbox-reeceipt-validator.fovea.cc/v1/validate?appName=demosx&apiKey=3a45c2cf-d213-427c-b5bb-1ead3a61332b";
-    // store.validator = "https://validator.fovea.cc/v1/validate?appName=test1&apiKey=d38078ab-154b-42ae-9042-20453c8e21e1";
+    store.validator = "https://validator.fovea.cc/v1/validate?appName=test&apiKey=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
 
     // Show errors on the dedicated Div.
     store.error(errorHandler);
@@ -162,10 +153,10 @@ function orderDiscount(productId, discountId) {
         return;
       }
       // example response data: {
-      //     "keyID": "D76V8WWKQ2",
-      //     "nonce": "ab7a27a7-50b6-4b81-b008-a3b1b922287c",
-      //     "timestamp": 1568976952688,
-      //     "signature": "NEYCIQC1FLmYb0PkzmpEowdcIZsVTcj09kAa1iZ8fbnJZT6hqQIhANIMLry52eDe5kMkz+n+rgnXw6D13YCLALWBw9pMDpt+"
+      //   "keyID": "XXXXXXXXXX",
+      //   "nonce": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      //   "timestamp": 1568976952688,
+      //   "signature": "..."
       // }         
       const orderData = {
         applicationUsername: store.getApplicationUsername(),
