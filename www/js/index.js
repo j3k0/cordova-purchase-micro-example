@@ -3,17 +3,50 @@ document.addEventListener('deviceready', onDeviceReady);
 function onDeviceReady() {
 
     const products = [{
+        id:    'demo_monthly_basic',
+        type:  store.PAID_SUBSCRIPTION,
+    }, {
+        id:    'demo_weekly_basic',
+        type:  store.PAID_SUBSCRIPTION,
+    }, {
+        id:    'subscription1',
+        type:  store.PAID_SUBSCRIPTION,
+    }, {
+        id:    'subscription2',
+        type:  store.PAID_SUBSCRIPTION,
+    }, {
         id:    'cc.fovea.purchase.subscription1sx',
-        alias: 'sub1',
         type:  store.PAID_SUBSCRIPTION,
     }, {
         id:    'cc.fovea.purchase.subscription2sx',
-        alias: 'sub2',
         type:  store.PAID_SUBSCRIPTION,
     }, {
         id:    '1_token',
-        alias: 'token',
         type:   store.CONSUMABLE,
+    }, {
+        id:    'consumable1',
+        type:   store.CONSUMABLE,
+    }, {
+        id:    'consumable2',
+        type:   store.CONSUMABLE,
+    }, {
+      type: store.NON_RENEWING_SUBSCRIPTION,
+      id: 'cc.fovea.purchase.nonrenewing.1hour'
+    }, {
+      type: store.NON_RENEWING_SUBSCRIPTION,
+      id: 'cc.fovea.purchase.nonrenewing.5minutes'
+    }, {
+      type: store.PAID_SUBSCRIPTION,
+      id: 'cc.fovea.purchase.subscription2'
+    }, {
+      type: store.CONSUMABLE,
+      id: 'cc.fovea.purchase.consumable1'
+    }, {
+      type: store.NON_CONSUMABLE,
+      id: 'cc.fovea.purchase.nonconsumable1'
+    }, {
+      type: store.PAID_SUBSCRIPTION,
+      id: 'cc.fovea.purchase.subscription1'
     }];
 
     // We should first register all our products or we cannot use them in the app.
@@ -53,13 +86,14 @@ function renderUI() {
     else
         document.getElementById('status').textContent = 'Not Subscribed';
 
+    const validProducts = store.products.filter(product => product.state !== 'invalid');
     document.getElementById('products').innerHTML =
-        store.products
+        validProducts
             .map(product => `<div id="${product.alias || product.id}-purchase" style="margin-top: 30px">...</div>`)
             .join('');
 
     // Render the products' DOM elements
-    store.products.forEach(p => renderProductUI(p.alias || p.id));
+    validProducts.forEach(p => renderProductUI(p.alias || p.id));
 
     // Does any our product has the given state?
     function haveState(value) {
@@ -189,4 +223,21 @@ function errorHandler(error) {
       alert('Cannot access purchase information. Use "Refresh" to try again.');
     }, 1);
   }
+}
+
+function restorePurchases() {
+  console.log('restorePurchases()');
+  store.refresh()
+  .cancelled(function() {
+    console.log('restorePurchases.cancelled()');
+  })
+  .failed(function() {
+    console.log('restorePurchases.failed()');
+  })
+  .completed(function() {
+    console.log('restorePurchases.completed()');
+  })
+  .finished(function() {
+    console.log('restorePurchases.finished()');
+  });
 }
