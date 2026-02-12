@@ -5,4 +5,5 @@ package-lock.json
 *.apk
 *.ipa
 .DS_Store
-www/js/index.js
+**/www/js/index.js
+.downloads/

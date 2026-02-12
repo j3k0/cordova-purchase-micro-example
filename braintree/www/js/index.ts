@@ -48,9 +48,7 @@ function onDeviceReady() {
     options: {
       clientTokenProvider: iaptic.braintreeClientTokenProvider,
       threeDSecure: {
-        threeDSecureRequest: {
-          exemptionRequested: true,
-        }
+        exemptionRequested: true,
       },
       googlePay: {
         googleMerchantName: 'Your Merchant Name',    // ← replace

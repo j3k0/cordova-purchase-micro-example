@@ -71,6 +71,7 @@ function onDeviceReady() {
     platform: Platform.IAPTIC_JS,
     options: {
       type: 'stripe',
+      stripePublicKey: 'pk_test_XXXXXXXXXXXXXX', // ← replace with your Stripe publishable key
       appName: 'YOUR_IAPTIC_APP_NAME',          // ← replace (same as above)
       apiKey: 'YOUR_IAPTIC_API_KEY',            // ← replace (same as above)
     }

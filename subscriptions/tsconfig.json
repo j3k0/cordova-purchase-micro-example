@@ -8,5 +8,6 @@
     "esModuleInterop": false,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
-  }
+  },
+  "include": ["www/js/index.ts"]
 }

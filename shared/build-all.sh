@@ -55,10 +55,10 @@ for example in "${EXAMPLES[@]}"; do
     npx cordova platform add "$PLATFORM" 2>&1 | tail -1
   fi
 
-  # Compile TypeScript
-  if [ -f "www/js/index.ts" ]; then
+  # Compile TypeScript (uses tsconfig.json)
+  if [ -f "tsconfig.json" ]; then
     echo "[$example] Compiling TypeScript..."
-    npx tsc www/js/index.ts 2>&1 || true
+    npx tsc 2>&1 || true
   fi
 
   # Build
