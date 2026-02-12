@@ -1,0 +1,8 @@
+node_modules/
+platforms/
+plugins/
+package-lock.json
+*.apk
+*.ipa
+.DS_Store
+www/js/index.js

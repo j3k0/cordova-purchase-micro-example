@@ -1,0 +1,59 @@
+{
+  "products" : [],
+  "settings" : {
+    "_timeRate" : 6
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "example_group",
+      "localizations" : [],
+      "name" : "Example Subscriptions",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [],
+          "displayPrice" : "4.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "AAAA0001",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Basic monthly subscription",
+              "displayName" : "Monthly Basic",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "monthly_basic",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Monthly Basic",
+          "subscriptionGroupID" : "example_group",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [],
+          "displayPrice" : "39.99",
+          "familyShareable" : false,
+          "groupNumber" : 2,
+          "internalID" : "AAAA0002",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Yearly pro subscription",
+              "displayName" : "Yearly Pro",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "yearly_pro",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Yearly Pro",
+          "subscriptionGroupID" : "example_group",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 1,
+    "minor" : 0
+  }
+}

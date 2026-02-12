@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.iaptic.com 'unsafe-eval' 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'">
+  <style>
+    body { font-family: -apple-system, sans-serif; margin: 20px; margin-top: 50px; background: white; }
+    #error { background-color: #ff0; padding: 4px; min-height: 1em; }
+    button { padding: 10px; margin-top: 10px; }
+    h3 { margin-bottom: 4px; }
+    .dialog-overlay {
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;
+    }
+    .dialog-overlay.active { display: flex; }
+    .dialog { background: white; padding: 20px; border-radius: 8px; text-align: center; }
+    .dialog input { width: 60px; font-size: 18px; text-align: center; padding: 8px; margin: 10px; }
+    .dialog button { margin: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Consumables Example</h1>
+
+  <!-- Error display -->
+  <div id="error"></div>
+
+  <!-- Product listing (populated dynamically) -->
+  <div id="products"></div>
+
+  <!-- Restore purchases -->
+  <button onclick="restorePurchases()">Restore Purchases</button>
+
+  <!-- Quantity dialog -->
+  <div id="quantity-dialog" class="dialog-overlay">
+    <div class="dialog">
+      <h3>Select Quantity</h3>
+      <input id="quantity-input" type="number" min="1" max="10" value="1" />
+      <div>
+        <button onclick="confirmQuantity()">Buy</button>
+        <button onclick="cancelQuantity()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.iaptic.com https://*.stripe.com https://cdn.jsdelivr.net 'unsafe-eval' 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; frame-src https://*.stripe.com">
+  <style>
+    body { font-family: -apple-system, sans-serif; margin: 20px; margin-top: 50px; background: white; }
+    #error { background-color: #ff0; padding: 4px; min-height: 1em; }
+    button { padding: 10px; margin-top: 10px; display: block; }
+    h3 { margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Stripe Example</h1>
+  <p>Web-based payments using Stripe via the iaptic-js platform adapter.</p>
+
+  <!-- Error display -->
+  <div id="error"></div>
+
+  <!-- Product listing (populated dynamically) -->
+  <div id="products"></div>
+
+  <!-- iaptic-js must be loaded before cordova.js for the IAPTIC_JS platform -->
+  <script src="https://cdn.jsdelivr.net/npm/iaptic-js@1/dist/iaptic-js.min.js"></script>
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>

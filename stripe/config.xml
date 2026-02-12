@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.example.stripe" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>StripeExample</name>
+    <description>Cordova Purchase Plugin — Stripe via iaptic-js Example</description>
+    <author href="https://github.com/j3k0/cordova-plugin-purchase">cordova-plugin-purchase</author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <platform name="android">
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+    <platform name="browser">
+        <preference name="port" value="8080" />
+    </platform>
+</widget>

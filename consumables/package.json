@@ -1,0 +1,29 @@
+{
+    "name": "cordova-purchase-example-consumables",
+    "displayName": "ConsumablesExample",
+    "version": "1.0.0",
+    "description": "Cordova Purchase Plugin — Consumables Example",
+    "main": "index.js",
+    "scripts": {
+        "build-js": "tsc www/js/index.ts"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "cordova": "^12.0.0"
+    },
+    "cordova": {
+        "plugins": {
+            "cordova-plugin-purchase": {}
+        },
+        "platforms": [
+            "android",
+            "ios"
+        ]
+    },
+    "devDependencies": {
+        "cordova-android": "^13.0.0",
+        "cordova-ios": "^7.1.1",
+        "cordova-plugin-purchase": "^13.0.0",
+        "typescript": "^5.0.0"
+    }
+}
