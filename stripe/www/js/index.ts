@@ -89,7 +89,7 @@ function onDeviceReady() {
     const validProducts = store.products.filter(p => p.offers.length > 0);
 
     if (validProducts.length === 0) {
-      productsEl.innerHTML = '<p>Loading products from Stripe…</p>';
+      productsEl.innerHTML = '<p>Loading products from Stripe...</p>';
       return;
     }
 

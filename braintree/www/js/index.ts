@@ -61,7 +61,7 @@ function onDeviceReady() {
   // ─── Payment handler ──────────────────────────
 
   (window as any).launchBraintreePayment = function() {
-    setStatus('Select payment method…');
+    setStatus('Select payment method...');
 
     // Optional: pre-fill billing address
     const billingAddress: CdvPurchase.PostalAddress = {

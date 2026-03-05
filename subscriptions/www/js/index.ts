@@ -93,7 +93,7 @@ function onDeviceReady() {
       const t = store.findInLocalReceipts(p);
       return t && (t.state === CdvPurchase.TransactionState.APPROVED || t.state === CdvPurchase.TransactionState.INITIATED);
     })) {
-      statusEl.innerHTML = '<h2>Processing…</h2>';
+      statusEl.innerHTML = '<h2>Processing...</h2>';
     } else {
       statusEl.innerHTML = '<h2>Not Subscribed</h2>';
     }
