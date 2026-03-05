@@ -9,5 +9,5 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "include": ["www/js/index.ts"]
+  "include": ["www/js/env.ts", "www/js/index.ts"]
 }

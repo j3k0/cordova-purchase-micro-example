@@ -21,37 +21,28 @@ function onDeviceReady() {
   const log = new Logger({ verbosity: LogLevel.DEBUG }, 'ConsumablesExample');
 
   // ──────────────────────────────────────────────
-  // 1. Register products
-  //    Replace these IDs with your own from App Store Connect / Google Play Console
+  // 1. Register products (configured in env.ts)
   // ──────────────────────────────────────────────
-  store.register([{
-    id: '100_coins',                            // ← replace with your product ID
+  store.register(ENV.consumableIds.flatMap((id: string) => [{
+    id,
     type: ProductType.CONSUMABLE,
     platform: Platform.APPLE_APPSTORE,
   }, {
-    id: '100_coins',                            // ← replace with your product ID
+    id,
     type: ProductType.CONSUMABLE,
     platform: Platform.GOOGLE_PLAY,
-  }, {
-    id: '500_coins',                            // ← replace with your product ID
-    type: ProductType.CONSUMABLE,
-    platform: Platform.APPLE_APPSTORE,
-  }, {
-    id: '500_coins',                            // ← replace with your product ID
-    type: ProductType.CONSUMABLE,
-    platform: Platform.GOOGLE_PLAY,
-  }]);
+  }]));
 
   store.verbosity = LogLevel.DEBUG;
+  store.applicationUsername = ENV.applicationUsername;
 
   // ──────────────────────────────────────────────
-  // 2. Receipt validation with iaptic
-  //    Replace appName and apiKey with your iaptic credentials
-  //    Sign up at https://www.iaptic.com
+  // 2. Receipt validation with iaptic (configured in env.ts)
   // ──────────────────────────────────────────────
   const iaptic = new CdvPurchase.Iaptic({
-    appName: 'YOUR_IAPTIC_APP_NAME',            // ← replace
-    apiKey: 'YOUR_IAPTIC_API_KEY',              // ← replace
+    appName: ENV.iapticAppName,
+    apiKey: ENV.iapticApiKey,
+    url: ENV.iapticUrl,
   });
   store.validator = iaptic.validator;
 

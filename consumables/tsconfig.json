@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2016",
-    "lib": ["DOM", "ES2016"],
+    "lib": ["DOM", "ES2019"],
     "module": "None",
     "declaration": false,
     "strict": true,
@@ -9,5 +9,5 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "include": ["www/js/index.ts"]
+  "include": ["www/js/env.ts", "www/js/index.ts"]
 }

@@ -18,16 +18,16 @@ function onDeviceReady() {
   const log = new Logger({ verbosity: LogLevel.DEBUG }, 'BraintreeExample');
 
   // ──────────────────────────────────────────────
-  // 1. Receipt validation with iaptic
-  //    Replace appName and apiKey with your iaptic credentials
-  //    Sign up at https://www.iaptic.com
+  // 1. Receipt validation with iaptic (configured in env.ts)
   // ──────────────────────────────────────────────
   const iaptic = new CdvPurchase.Iaptic({
-    appName: 'YOUR_IAPTIC_APP_NAME',            // ← replace
-    apiKey: 'YOUR_IAPTIC_API_KEY',              // ← replace
+    appName: ENV.iapticAppName,
+    apiKey: ENV.iapticApiKey,
+    url: ENV.iapticUrl,
   });
   store.validator = iaptic.validator;
   store.verbosity = LogLevel.DEBUG;
+  store.applicationUsername = ENV.applicationUsername;
 
   // ──────────────────────────────────────────────
   // 2. Event handlers
@@ -51,9 +51,9 @@ function onDeviceReady() {
         exemptionRequested: true,
       },
       googlePay: {
-        googleMerchantName: 'Your Merchant Name',    // ← replace
-        countryCode: 'US',                            // ← replace with your country
-        environment: 'TEST',                          // ← change to 'PRODUCTION' for live
+        googleMerchantName: ENV.googleMerchantName,
+        countryCode: ENV.googlePayCountryCode,
+        environment: ENV.googlePayEnvironment,
       }
     }
   }]);
@@ -93,8 +93,8 @@ function onDeviceReady() {
     payment
       .cancelled(() => setStatus(''))
       .failed(error => { alert(error.message); setStatus(''); })
-      .initiated(() => setStatus('Processing payment…'))
-      .approved(() => setStatus('Verifying payment…'))
+      .initiated(() => setStatus('Processing payment...'))
+      .approved(() => setStatus('Verifying payment...'))
       .finished(() => setStatus('Payment successful!'));
   };
 }

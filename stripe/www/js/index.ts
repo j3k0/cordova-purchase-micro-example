@@ -23,29 +23,28 @@ function onDeviceReady() {
   const log = new Logger({ verbosity: LogLevel.DEBUG }, 'StripeExample');
 
   // ──────────────────────────────────────────────
-  // 1. Register products
-  //    These product IDs come from your iaptic dashboard
-  //    (they correspond to Stripe products/prices)
+  // 1. Register products (configured in env.ts)
   // ──────────────────────────────────────────────
   store.register([{
-    id: 'prod_XXXXXXXXXXXXX',                   // ← replace with your iaptic/Stripe product ID
+    id: ENV.consumableProductId,
     type: ProductType.CONSUMABLE,
     platform: Platform.IAPTIC_JS,
   }, {
-    id: 'prod_YYYYYYYYYYYYY',                   // ← replace with your iaptic/Stripe product ID
+    id: ENV.subscriptionProductId,
     type: ProductType.PAID_SUBSCRIPTION,
     platform: Platform.IAPTIC_JS,
   }]);
 
   store.verbosity = LogLevel.DEBUG;
+  store.applicationUsername = ENV.applicationUsername;
 
   // ──────────────────────────────────────────────
-  // 2. Receipt validation with iaptic
-  //    Replace appName and apiKey with your iaptic credentials
+  // 2. Receipt validation with iaptic (configured in env.ts)
   // ──────────────────────────────────────────────
   const iaptic = new CdvPurchase.Iaptic({
-    appName: 'YOUR_IAPTIC_APP_NAME',            // ← replace
-    apiKey: 'YOUR_IAPTIC_API_KEY',              // ← replace
+    appName: ENV.iapticAppName,
+    apiKey: ENV.iapticApiKey,
+    url: ENV.iapticUrl,
   });
   store.validator = iaptic.validator;
 
@@ -64,16 +63,15 @@ function onDeviceReady() {
     .finished(() => renderUI());
 
   // ──────────────────────────────────────────────
-  // 4. Initialize with the IAPTIC_JS platform (Stripe)
-  //    Replace appName and apiKey with your iaptic credentials
+  // 4. Initialize with the IAPTIC_JS platform (Stripe, configured in env.ts)
   // ──────────────────────────────────────────────
   store.initialize([{
     platform: Platform.IAPTIC_JS,
     options: {
       type: 'stripe',
-      stripePublicKey: 'pk_test_XXXXXXXXXXXXXX', // ← replace with your Stripe publishable key
-      appName: 'YOUR_IAPTIC_APP_NAME',          // ← replace (same as above)
-      apiKey: 'YOUR_IAPTIC_API_KEY',            // ← replace (same as above)
+      stripePublicKey: ENV.stripePublicKey,
+      appName: ENV.iapticAppName,
+      apiKey: ENV.iapticApiKey,
     }
   }]);
 

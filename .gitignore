@@ -6,4 +6,6 @@ package-lock.json
 *.ipa
 .DS_Store
 **/www/js/index.js
+**/www/js/env.ts
+**/www/js/env.js
 .downloads/
