@@ -17,6 +17,30 @@ function onDeviceReady() {
   const log = new Logger({ verbosity: LogLevel.DEBUG }, 'ConsumablesExample');
 
   // ──────────────────────────────────────────────
+  // Token counter (persisted in localStorage)
+  // ──────────────────────────────────────────────
+  // A real app would use a server-side DB; this is just a demo.
+  const purchasesKey = 'purchases_v3';
+  let purchases: Record<string, { date: string, quantity: number }> =
+    JSON.parse(localStorage.getItem(purchasesKey) || '{}');
+
+  function getTokens(): number {
+    return Object.values(purchases).reduce((sum, p) => sum + p.quantity, 0);
+  }
+
+  function upsertPurchase(transactionId: string, quantity: number) {
+    if (purchases[transactionId]) return false;
+    purchases[transactionId] = { date: new Date().toISOString(), quantity };
+    localStorage.setItem(purchasesKey, JSON.stringify(purchases));
+    return true;
+  }
+
+  function setStatus(msg: string) {
+    const el = document.getElementById('status');
+    if (el) el.textContent = msg;
+  }
+
+  // ──────────────────────────────────────────────
   // 1. Register products (configured in env.ts)
   // ──────────────────────────────────────────────
   store.register(ENV.consumableIds.flatMap((id: string) => [{
@@ -49,12 +73,36 @@ function onDeviceReady() {
 
   store.when()
     .productUpdated(() => renderUI())
-    .approved(transaction => transaction.verify())
+    .approved(transaction => {
+      setStatus('Validating...');
+      transaction.verify();
+    })
     .verified(receipt => {
+      log.info('verified collection: ' + JSON.stringify(receipt.collection));
+
+      // Sync purchases from the verified receipt's collection
+      for (const purchase of receipt.collection) {
+        if (!purchase.id || !ENV.consumableIds.includes(purchase.id)) continue;
+        const key = purchase.transactionId || purchase.purchaseId || (purchase.id + ':' + purchase.purchaseDate);
+        if (purchase.cancelationReason) {
+          log.info('canceled purchase: ' + key + ' reason: ' + purchase.cancelationReason);
+          if (purchases[key]) {
+            purchases[key].quantity = 0;
+            localStorage.setItem(purchasesKey, JSON.stringify(purchases));
+          }
+        } else {
+          if (upsertPurchase(key, 1)) {
+            setStatus('Purchase complete! +1 token');
+          }
+        }
+      }
       receipt.finish();
       renderUI();
     })
-    .finished(() => renderUI());
+    .finished(() => {
+      setTimeout(() => setStatus(''), 3000);
+      renderUI();
+    });
 
   // ──────────────────────────────────────────────
   // 4. Initialize — connects to the store
@@ -70,6 +118,9 @@ function onDeviceReady() {
 
   function renderUI() {
     const store = CdvPurchase.store;
+    const tokensEl = document.getElementById('tokens');
+    if (tokensEl) tokensEl.textContent = `Tokens: ${getTokens()}`;
+
     const productsEl = document.getElementById('products');
     if (!productsEl) return;
 
@@ -94,7 +145,10 @@ function onDeviceReady() {
   // Expose globally so HTML onclick handlers work
   (window as any).orderOffer = function(platform: string, productId: string, offerId: string) {
     const offer = CdvPurchase.store.get(productId, platform as CdvPurchase.Platform)?.getOffer(offerId);
-    if (offer) CdvPurchase.store.order(offer);
+    if (offer) {
+      setStatus('Processing...');
+      CdvPurchase.store.order(offer);
+    }
   };
 
   (window as any).restorePurchases = function() {
