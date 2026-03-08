@@ -6,14 +6,10 @@
  * Demonstrates:
  *  - Registering consumable products on Apple App Store & Google Play
  *  - Receipt validation via iaptic
- *  - Quantity selection dialog before purchase
  *  - Handling the approved → verified → finished lifecycle
  */
 
 document.addEventListener('deviceready', onDeviceReady);
-
-// Pending order details for the quantity dialog
-let pendingOrder: { platform: string; productId: string; offerId: string } | null = null;
 
 function onDeviceReady() {
 
@@ -57,10 +53,6 @@ function onDeviceReady() {
     .verified(receipt => {
       receipt.finish();
       renderUI();
-      // Here you would grant the user's coins/tokens:
-      // receipt.collection.forEach(purchase => {
-      //   grantCoins(purchase.id, purchase.quantity ?? 1);
-      // });
     })
     .finished(() => renderUI());
 
@@ -89,7 +81,7 @@ function onDeviceReady() {
       const offers = product.offers.map(offer => {
         const price = offer.pricingPhases[0]?.price || '';
         const buyBtn = offer.canPurchase
-          ? ` <button onclick="showQuantityDialog('${product.platform}','${product.id}','${offer.id}')">Buy</button>`
+          ? ` <button onclick="orderOffer('${product.platform}','${product.id}','${offer.id}')">Buy</button>`
           : '';
         return `<li>${price}${buyBtn}</li>`;
       }).join('');
@@ -100,44 +92,9 @@ function onDeviceReady() {
   }
 
   // Expose globally so HTML onclick handlers work
-  (window as any).showQuantityDialog = function(platform: string, productId: string, offerId: string) {
-    pendingOrder = { platform, productId, offerId };
-    const dialog = document.getElementById('quantity-dialog');
-    const input = document.getElementById('quantity-input') as HTMLInputElement;
-    if (dialog) dialog.classList.add('active');
-    if (input) input.value = '1';
-  };
-
-  (window as any).confirmQuantity = function() {
-    const dialog = document.getElementById('quantity-dialog');
-    const input = document.getElementById('quantity-input') as HTMLInputElement;
-    if (dialog) dialog.classList.remove('active');
-    if (!pendingOrder) return;
-
-    const qty = parseInt(input?.value || '1');
-    if (isNaN(qty) || qty < 1 || qty > 10) {
-      alert('Please enter a quantity between 1 and 10');
-      return;
-    }
-
-    const { platform, productId, offerId } = pendingOrder;
-    pendingOrder = null;
-
+  (window as any).orderOffer = function(platform: string, productId: string, offerId: string) {
     const offer = CdvPurchase.store.get(productId, platform as CdvPurchase.Platform)?.getOffer(offerId);
-    if (!offer) return;
-
-    const additionalData: CdvPurchase.AdditionalData = {};
-    if (platform === CdvPurchase.Platform.APPLE_APPSTORE) {
-      additionalData.appStore = { quantity: qty } as any;
-    }
-
-    CdvPurchase.store.order(offer, additionalData);
-  };
-
-  (window as any).cancelQuantity = function() {
-    const dialog = document.getElementById('quantity-dialog');
-    if (dialog) dialog.classList.remove('active');
-    pendingOrder = null;
+    if (offer) CdvPurchase.store.order(offer);
   };
 
   (window as any).restorePurchases = function() {
