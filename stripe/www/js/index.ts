@@ -72,6 +72,7 @@ function onDeviceReady() {
       stripePublicKey: ENV.stripePublicKey,
       appName: ENV.iapticAppName,
       apiKey: ENV.iapticApiKey,
+      customIapticUrl: ENV.iapticUrl,
     }
   }]);
 
