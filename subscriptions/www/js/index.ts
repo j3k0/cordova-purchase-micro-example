@@ -48,7 +48,9 @@ function onDeviceReady() {
   // ──────────────────────────────────────────────
   store.error(onStoreError);
 
+  let receiptsReady = false;
   store.when()
+    .receiptsVerified(() => { receiptsReady = true; renderUI(); })
     .productUpdated(() => renderUI())
     .approved(transaction => transaction.verify())
     .verified(receipt => receipt.finish())
@@ -85,6 +87,8 @@ function onDeviceReady() {
       return t && (t.state === CdvPurchase.TransactionState.APPROVED || t.state === CdvPurchase.TransactionState.INITIATED);
     })) {
       statusEl.innerHTML = '<h2>Processing...</h2>';
+    } else if (!receiptsReady) {
+      statusEl.innerHTML = '<h2>Checking your subscription...</h2>';
     } else {
       statusEl.innerHTML = '<h2>Not Subscribed</h2>';
     }
