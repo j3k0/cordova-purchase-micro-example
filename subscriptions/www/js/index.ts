@@ -117,6 +117,11 @@ function onDeviceReady() {
         + `<div>${product.description || ''}</div>`
         + `<ul>${offers}</ul>`;
     });
+    const storefrontEl = document.getElementById('storefront');
+    const storefront = store.getStorefront();
+    if (storefrontEl && storefront) storefrontEl.innerHTML = `
+      <p>Store: ${storefront.platform} (${storefront.countryCode})</p>
+    `;
   }
 
   // Expose globally so HTML onclick handlers work
