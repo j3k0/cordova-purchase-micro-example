@@ -13,7 +13,10 @@
     },
     "cordova": {
         "plugins": {
-            "cordova-plugin-purchase": {}
+            "cordova-plugin-purchase": {},
+            "cordova-plugin-purchase-storekit2": {
+                "SWIFTVERSION": "5.0"
+            }
         },
         "platforms": [
             "android",

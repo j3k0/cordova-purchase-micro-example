@@ -12,5 +12,6 @@
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+        <preference name="SwiftVersion" value="5.0" />
     </platform>
 </widget>
