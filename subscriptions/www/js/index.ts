@@ -147,6 +147,7 @@ function formatDuration(iso: string | undefined): string {
 }
 
 function onStoreError(error: CdvPurchase.IError) {
+  if (error.code === CdvPurchase.ErrorCode.PAYMENT_CANCELLED) return;
   const el = document.getElementById('error');
   if (!el) return;
   el.textContent = `ERROR ${error.code}: ${error.message}`;
