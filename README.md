@@ -27,6 +27,18 @@ Before building, update the placeholder values in each example:
 - **iaptic credentials** — replace `YOUR_IAPTIC_APP_NAME` and `YOUR_IAPTIC_API_KEY`
 - **App ID** in `config.xml` — replace with your bundle identifier
 
+## Testing with the Fovea Demo Play Console App
+
+For internal testing, the examples are configured against the Play Console app
+`cc.fovea.purchase.demo.nc` ("Cdv NonConsumable Demo"):
+
+- `config.xml` uses `id="cc.fovea.purchase.demo.nc"` (Android package — must match
+  Play Console or no products load) and `ios-id="cc.fovea.subsdemo"` for iOS.
+- Known-active Google Play product IDs (as of 2026-06): `consumable1`, `consumable2`
+  (consumables), `subscription1`, `subscription2` (subscriptions).
+- The `Pixel_4_API_35_Play` AVD is signed into a license-tester account, so a
+  debug APK installed with `adb install` loads real products.
+
 ## Shared Scripts
 
 - **`shared/update-plugin.sh <version>`** — Update `cordova-plugin-purchase` to a specific version in all examples

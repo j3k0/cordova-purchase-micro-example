@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+cd "$(dirname "$0")"
+npx cordova plugin rm cordova-plugin-purchase
+npx cordova plugin rm cordova-plugin-purchase-storekit2
+npx cordova plugin add ../../cordova-plugin-purchase
+npx cordova plugin add ../../cordova-plugin-purchase-storekit2

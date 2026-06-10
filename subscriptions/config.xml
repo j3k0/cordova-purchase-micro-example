@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.example.subscriptions" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="cc.fovea.purchase.demo.nc" ios-id="cc.fovea.subsdemo" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>SubscriptionsExample</name>
     <description>Cordova Purchase Plugin — Subscriptions Example</description>
     <author href="https://github.com/j3k0/cordova-plugin-purchase">cordova-plugin-purchase</author>

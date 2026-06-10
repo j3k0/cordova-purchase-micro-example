@@ -15,18 +15,19 @@
         "plugins": {
             "cordova-plugin-purchase": {},
             "cordova-plugin-purchase-storekit2": {
-                "SWIFTVERSION": "5.5"
+                "SWIFTVERSION": "5.0"
             }
         },
         "platforms": [
-            "android",
-            "ios"
+            "ios",
+            "android"
         ]
     },
     "devDependencies": {
-        "cordova-android": "^13.0.0",
+        "cordova-android": "^15.0.0",
         "cordova-ios": "^8.0.0",
-        "cordova-plugin-purchase": "^13.0.0",
+        "cordova-plugin-purchase": "file:../../cordova-plugin-purchase",
+        "cordova-plugin-purchase-storekit2": "file:../../cordova-plugin-purchase-storekit2",
         "typescript": "^5.0.0"
     }
 }
